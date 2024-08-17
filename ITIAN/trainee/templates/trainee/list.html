@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>trainee-list</title>
+</head>
+<body>
+    <h1>trainees list</h1>
+<table border="1px solid" width="100%"
+    <tr>
+        <th>ID</th>
+        <th>name</th>
+        <th>email</th>
+        <th>age</th>
+        <th>address</th>
+        <th>track ID</th>
+        <th>Actions</th>
+    </tr>
+ {%for trainee in trainees%}
+<tr>
+    <td>{{trainee.id}}</td>
+    <td>{{trainee.name}}</td>
+    <td>{{trainee.email}}</td>
+    <td>{{trainee.age}}</td>
+    <td>{{trainee.address}}</td>
+    <td>{{trainee.trackID}}</td>
+    <td>
+        <a href="{%url 'trainee_update' trainee.id%}">Update</a>
+        <a href="{%url 'trainee_delete' trainee.id%}">Delete</a>
+        <a href="{%url 'trainee_details' trainee.id%}">show details</a>
+    </td>
+</tr>
+
+{%endfor%}
+
+</table>
+</body>
+</html>
