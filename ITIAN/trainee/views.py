@@ -1,16 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from .models import *
+from track.models import *
+
 
 # Create your views here.
 
 def trainee_list(request):
-    trainee=[]
-    trainee1={'id':1,'name':'maria','email':'maria@gmail.com','age':23,'address':'El-Fayoum','trackID':1}
-    trainee2={'id':2,'name':'marina','email':'marina@gmail.com','age':23,'address':'El-Fayoum','trackID':2}
-    trainee.append(trainee1)
-    trainee.append(trainee2)
     context={}
-    context['trainees']=trainee
+    trainees=Trainee.objects.all()
+    context['trainees']=trainees
     return render(request,'trainee/list.html',context)
 
 def trainee_update(request, id):
@@ -24,9 +23,23 @@ def trainee_delete(request, id):
     return render(request, "trainee/delete.html", context)
 
 def trainee_details(request, id):
-    context = {}
-    context = {"id": id}
-    return render(request, "trainee/details.html", context)
+    context={'trainee':Trainee.objects.get(pk=id)}
+    return render(request,'trainee/details.html',context)
 
 def trainee_create(request):
-    return render(request, "trainee/create.html")
+    context={}
+    context['tracks']=Track.objects.all()
+    if(request.method=='POST'):
+        context={}
+        if(len(request.POST['traineename'])>0 and len(request.POST['traineename'])<=100):
+            traineeobj=Trainee()
+            traineeobj.name=request.POST['traineename']
+            traineeobj.email=request.POST['traineeemail']
+            traineeobj.age=request.POST['traineeage']
+            traineeobj.address=request.POST['traineeaddress']
+            traineeobj.trackobj=Track.objects.get(pk=request.POST['traineetrackid'])
+            traineeobj.save()
+            # return redirect('trainee:trainee_list')
+        else:
+            context['error']='invalid'
+    return render(request,'trainee/create.html',context)

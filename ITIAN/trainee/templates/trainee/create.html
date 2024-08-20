@@ -1,27 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>trainee_create</title>
-</head>
-<body>
+{%extends 'base.html'%}
+{%block 'title'%}
+Trainees - create
+{%endblock%}
+
+{%block 'content'%}
     <h1>create trainee </h1>
-    <form>
-            <label for="name">name:</label>
-            <input type="text" name="name"/><br><br>
+    <form method="POST">
+        {%csrf_token%}
+        <label>Name:</label>
+        <input type="text" name="traineename" required> <br><br>
 
-            <label for="email">email:</label>
-            <input type="email" name="email" /><br><br>
+        <label>email:</label>
+        <input type="email" name="traineeemail" required/> <br><br>
+        
+        <label>image:</label>
+        <input type="file" name="traineeimage"> <br><br>
 
-            <label for="age">age:</label>
-            <input type="text" name="age" /><br><br>
+        <label>age:</label>
+        <input type="number" name="traineeage" required/><br><br>
 
-            <label for="address">address:</label>
-            <input type="text" name="address" /><br><br>
+        <label>address:</label>
+        <input type="text" name="traineeaddress" required/><br><br>
 
-            <button>create</button>
-      
+      <label>track:</label>
+        <select name="traineetrackid">
+            {%for track in tracks%}
+            <option value="{{track.id}}" >{{track.name}}</option>
+            {%endfor%}
+        </select> <br><br>
+    <input type="submit" value="Create">
+    
     </form>
-</body>
-</html>
+    <div style="color:red">
+        <h1>{{error}}</h1>
+    </div>
+ {%endblock%}
