@@ -29,10 +29,10 @@ def track_create(request):
             trackobj=Track()
             trackobj.name=request.POST['trackname']
             trackobj.save()
-            # return redirect('track:track_list')
+            return redirect('track_list')
         else:
             context['error']='invalid'
     return render(request,'track/create.html',context)
-    # return  HttpResponse(f'<h1>Account details</h1>')
+    
 
 

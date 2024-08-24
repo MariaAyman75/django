@@ -2,10 +2,11 @@
 {%block 'title'%}
 Trainees - details
 {%endblock%}
-
 {%block 'content'%}
-    <h1>trainees details</h1>
-    ID:{{trainee.id}}
+<h1>trainees details {{id}}</h1>
+ID:{{trainee.id}}
 </br>
 Name:{{trainee.name}}
+</br>
+<img src="{{trainee.getimage}}">
 {%endblock%}

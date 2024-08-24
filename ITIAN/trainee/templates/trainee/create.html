@@ -5,7 +5,7 @@ Trainees - create
 
 {%block 'content'%}
     <h1>create trainee </h1>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {%csrf_token%}
         <label>Name:</label>
         <input type="text" name="traineename" required> <br><br>
@@ -35,3 +35,4 @@ Trainees - create
         <h1>{{error}}</h1>
     </div>
  {%endblock%}
+

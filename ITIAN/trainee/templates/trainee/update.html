@@ -1,24 +1,44 @@
 {%extends 'base.html'%}
 {%block 'title'%}
-Trainees - update
+Trainee - Update
 {%endblock%}
-
 {%block 'content'%}
-    <h1>update trainee </h1>
-    <form>
-            <label for="name">name:</label>
-            <input type="text" name="name"/><br><br>
+<h1>update trainee{{id}}</h1>
+<form method="POST">
+    {%csrf_token%}
+    <label>Name:</label>
+    <input type="text" name="traineename" required value="{{trainee.name}}">
+    <br><br>
 
-            <label for="email">email:</label>
-            <input type="email" name="email" /><br><br>
+    <label>image:</label>
+    <input type="file" name="traineeimage">
+    <img src="{{trainee.image}}"/>
+    <br><br>
+    
+    <label>email:</label>
+    <input type="email" name="traineeemail" required value="{{trainee.email}}">
+    <br><br>
 
-            <label for="age">age:</label>
-            <input type="text" name="age" /><br><br>
+    <label>age:</label>
+    <input type="number" name="traineeage" required value="{{trainee.age}}">
+    <br><br>
 
-            <label for="address">address:</label>
-            <input type="text" name="address" /><br><br>
+    <label>address:</label>
+    <input type="text" name="traineeaddress" required value="{{trainee.address}}">
+    <br><br>
+  
+     <label>track:</label>
+     <select name="traineetrackid">
+        {%for track in tracks%}
+        <option value="{{track.id}}"     {%if track.id == trainee.trackobj.id%}
+    selected {%endif%} >{{track.name}}</option>
+        {%endfor%}
+    </select>
+<br><br>
+<input type="submit" value="update">
 
-            <button>update</button>
-      
-    </form>
+</form>
+<div style="color:red">
+    <h1>{{error}}</h1>
+</div>
 {%endblock%}

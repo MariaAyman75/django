@@ -1,0 +1,48 @@
+from django import forms
+from track.models import Track
+
+class NewTrainee(forms.Form):
+    name = forms.CharField(
+        required=True, 
+        max_length=100, 
+        widget=forms.TextInput(attrs={
+            'class': 'form-control', 
+            'placeholder': 'Enter trainee name'
+        })
+    )
+    image = forms.ImageField(
+        required=False, 
+        label='Upload Trainee Image',
+        widget=forms.ClearableFileInput(attrs={
+            'class': 'form-control-file'
+        })
+    )
+    email = forms.EmailField(
+        required=True,
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control', 
+            'placeholder': 'Enter trainee email'
+        })
+    )
+    age = forms.IntegerField(
+        required=True,
+        widget=forms.NumberInput(attrs={
+            'class': 'form-control', 
+            'placeholder': 'Enter trainee age'
+        })
+    )
+    address = forms.CharField(
+        required=True,
+        max_length=255,
+        widget=forms.Textarea(attrs={
+            'class': 'form-control', 
+            'placeholder': 'Enter trainee address',
+            'rows': 3
+        })
+    )
+    track = forms.ChoiceField(
+        choices=Track.getall(),
+        widget=forms.Select(attrs={
+            'class': 'form-control'
+        })
+    )
