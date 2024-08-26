@@ -1,5 +1,6 @@
 from django import forms
 from track.models import Track
+from .models import *
 
 class NewTrainee(forms.Form):
     name = forms.CharField(
@@ -46,3 +47,11 @@ class NewTrainee(forms.Form):
             'class': 'form-control'
         })
     )
+
+class NewtraineeModel(forms.ModelForm):
+    track = forms.ChoiceField(choices=Track.getall())
+    class Meta:
+        model = Trainee
+        fields='__all__'
+        exclude=['trackobj']
+   
